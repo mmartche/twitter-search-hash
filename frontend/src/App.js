@@ -1,15 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import SampleMap from './components/sampleMap';
 import FormSearch from './components/FormSearch';
+import SampleMap from './components/SampleMap';
 import TwitterAuth from './components/TwitterAuth';
-
-const location = {
-  address: '1600 Amphitheatre Parkway, Mountain View, california.',
-  lat: 37.42216,
-  lng: -122.08427,
-}
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
 function App() {
   return (
@@ -18,8 +12,16 @@ function App() {
         <TwitterAuth />
       </header>
       <body>
-        <FormSearch />
-        <img src={logo} className="App-logo" alt="logo" />
+        <Grid fluid>
+          <Row>
+            <Col xs={6} md={3}>
+              <FormSearch />
+            </Col>
+            <Col xs={6} md={9}>
+              <SampleMap />
+            </Col>
+          </Row>
+        </Grid>
       </body>
     </div>
   );
