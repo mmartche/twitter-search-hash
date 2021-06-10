@@ -1,4 +1,4 @@
-package com.marcelo.forum.repository;
+package com.marcelo.api.repository;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.marcelo.api.modelo.Curso;
-import com.marcelo.api.repository.CursoRepository;
+
 
 
 @RunWith(SpringRunner.class)

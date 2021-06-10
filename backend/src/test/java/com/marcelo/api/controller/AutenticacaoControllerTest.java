@@ -1,4 +1,4 @@
-package com.marcelo.forum.controller;
+package com.marcelo.api.controller;
 
 import java.net.URI;
 import org.junit.jupiter.api.Test;

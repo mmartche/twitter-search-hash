@@ -1,4 +1,4 @@
-package com.marcelo.forum;
+package com.marcelo.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

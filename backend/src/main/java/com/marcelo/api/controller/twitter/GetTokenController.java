@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,12 @@ import twitter4j.conf.ConfigurationBuilder;
 
 @Controller
 public class GetTokenController {
+	
+	@Value("${api.twitter.consumerKey}")
+	private String consumerKey;
+	
+	@Value("${api.twitter.consumerSecret}")
+	private String consumerSecret;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(GetTokenController.class);
 	
@@ -43,7 +50,8 @@ public class GetTokenController {
 			
 			//now get the authorization URL from the token
 			twitterUrl = requestToken.getAuthorizationURL();
-			
+			LOGGER.info("requestToken " + requestToken);
+			LOGGER.info("twitter " + twitter);
 			LOGGER.info("Authorization url is " + twitterUrl);
 		} catch (Exception e) {
 			LOGGER.error("Problem logging in with Twitter!", e);
@@ -61,10 +69,6 @@ public class GetTokenController {
      */
     public Twitter getTwitter() {
     	Twitter twitter = null;
-    	
-    	//set the consumer key and secret for our app
-		String consumerKey = "vE79bTxRVc03zqn16hSXBKmKM";
-		String consumerSecret = "XD2ESS1GdwegzvLIrS0tABleD44Kje37QRpJ6dHdXf9mISGbMj";
     	
 		//build the configuration
     	ConfigurationBuilder builder = new ConfigurationBuilder();
