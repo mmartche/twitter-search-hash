@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.marcelo.api.modelo.Usuario;
+import com.marcelo.api.modelo.User;
 
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -21,10 +21,10 @@ public class SwaggerConfigurations {
 	public Docket forumApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.marcelo.forum"))
+				.apis(RequestHandlerSelectors.basePackage("com.marcelo.api"))
 				.paths(PathSelectors.ant("/**"))
 				.build()
-				.ignoredParameterTypes(Usuario.class)
+				.ignoredParameterTypes(User.class)
 				.globalOperationParameters(
 						Arrays.asList(
 								new ParameterBuilder()

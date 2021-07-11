@@ -15,7 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.marcelo.api.repository.UsuarioRepository;
+import com.marcelo.api.repository.UserRepository;
 
 @EnableWebSecurity
 @Configuration
@@ -23,13 +23,13 @@ import com.marcelo.api.repository.UsuarioRepository;
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	private AutenticacaoService autenticacaoService;
+	private AuthenticationService authenticationService;
 	
 	@Autowired
 	private TokenService tokenService;
 	
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private UserRepository userRepository;
 	
 	@Override
 	@Bean
@@ -39,29 +39,30 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(autenticacaoService).passwordEncoder(new BCryptPasswordEncoder());
+		auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers(HttpMethod.GET, "/topicos").permitAll()
-			.antMatchers(HttpMethod.GET, "/topicos/*").permitAll()
+			.antMatchers(HttpMethod.GET, "/topics").permitAll()
+			.antMatchers(HttpMethod.GET, "/topics/*").permitAll()
+			.antMatchers("/topics/results").permitAll()
 			.antMatchers(HttpMethod.POST, "/auth").permitAll()
 			.antMatchers(HttpMethod.GET, "/actuator").permitAll()
 			.antMatchers("/getToken").permitAll()
 			.antMatchers("/twitterCallback").permitAll()
-			.antMatchers(HttpMethod.DELETE, "/topicos/*").hasRole("MODERADOR")
-			.antMatchers(HttpMethod.POST, "/topicos/*").authenticated()
+			.antMatchers(HttpMethod.DELETE, "/topics/*").hasRole("MODERADOR")
+			.antMatchers(HttpMethod.POST, "/topics/*").authenticated()
 			.anyRequest().authenticated()
 			.and().csrf().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
+			.and().addFilterBefore(new AuthenticationByTokenFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter.class);
 	}
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
+		web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**", "/h2-console/**");
 	}
 
 }

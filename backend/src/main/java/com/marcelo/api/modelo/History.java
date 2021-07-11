@@ -9,17 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Resposta {
+public class History {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String mensagem;
+	private String mesage;
 	@ManyToOne
-	private Topico topico;
-	private LocalDateTime dataCriacao = LocalDateTime.now();
+	private Topic topic;
+	private LocalDateTime dateCreated = LocalDateTime.now();
 	@ManyToOne
-	private Usuario autor;
-	private Boolean solucao = false;
+	private User author;
+	private Boolean soluction = false;
 
 	@Override
 	public int hashCode() {
@@ -37,7 +37,7 @@ public class Resposta {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Resposta other = (Resposta) obj;
+		History other = (History) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -54,44 +54,45 @@ public class Resposta {
 		this.id = id;
 	}
 
-	public String getMensagem() {
-		return mensagem;
+	public Topic getTopic() {
+		return topic;
 	}
 
-	public void setMensagem(String mensagem) {
-		this.mensagem = mensagem;
+	public void setTopic(Topic topic) {
+		this.topic = topic;
 	}
 
-	public Topico getTopico() {
-		return topico;
+	public String getMesage() {
+		return mesage;
 	}
 
-	public void setTopico(Topico topico) {
-		this.topico = topico;
+	public void setMesage(String mesage) {
+		this.mesage = mesage;
 	}
 
-	public LocalDateTime getDataCriacao() {
-		return dataCriacao;
+	public LocalDateTime getDateCreated() {
+		return dateCreated;
 	}
 
-	public void setDataCriacao(LocalDateTime dataCriacao) {
-		this.dataCriacao = dataCriacao;
+	public void setDateCreated(LocalDateTime dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 
-	public Usuario getAutor() {
-		return autor;
+	public Boolean getSoluction() {
+		return soluction;
 	}
 
-	public void setAutor(Usuario autor) {
-		this.autor = autor;
+	public void setSoluction(Boolean soluction) {
+		this.soluction = soluction;
 	}
 
-	public Boolean getSolucao() {
-		return solucao;
+	public User getAuthor() {
+		return author;
 	}
 
-	public void setSolucao(Boolean solucao) {
-		this.solucao = solucao;
+	public void setAuthor(User author) {
+		this.author = author;
 	}
+
 
 }

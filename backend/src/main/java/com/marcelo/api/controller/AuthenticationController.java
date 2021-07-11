@@ -20,8 +20,8 @@ import com.marcelo.api.controller.form.LoginForm;
 
 @RestController
 @RequestMapping("/auth")
-@Profile(value = {"prod", "test"})
-public class AutenticacaoController {
+@Profile(value = {"prod", "test", "dev"})
+public class AuthenticationController {
 	
 	@Autowired
 	private AuthenticationManager authManager;
@@ -30,11 +30,11 @@ public class AutenticacaoController {
 	private TokenService tokenService;
 
 	@PostMapping
-	public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm form){
-		UsernamePasswordAuthenticationToken dadosLogin = form.converter();
+	public ResponseEntity<TokenDto> authentic(@RequestBody @Valid LoginForm form){
+		UsernamePasswordAuthenticationToken dataLogin = form.converter();
 		
 		try {
-			Authentication authentication = authManager.authenticate(dadosLogin);
+			Authentication authentication = authManager.authenticate(dataLogin);
 			String token = tokenService.gerarToken(authentication);
 			return ResponseEntity.ok(new TokenDto(token, "Bearer"));			
 		} catch (AuthenticationException e) {

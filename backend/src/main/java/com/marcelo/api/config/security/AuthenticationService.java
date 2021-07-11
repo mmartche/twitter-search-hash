@@ -8,20 +8,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.marcelo.api.modelo.Usuario;
-import com.marcelo.api.repository.UsuarioRepository;
+import com.marcelo.api.modelo.User;
+import com.marcelo.api.repository.UserRepository;
 
 @Service
-public class AutenticacaoService implements UserDetailsService {
+public class AuthenticationService implements UserDetailsService {
 	
 	@Autowired
-	private UsuarioRepository repository;
+	private UserRepository repository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<Usuario> usuario = repository.findByEmail(username);
-		if (usuario.isPresent()) {
-			return usuario.get();
+		Optional<User> user = repository.findByEmail(username);
+		if (user.isPresent()) {
+			return user.get();
 		}
 
 		throw new UsernameNotFoundException("Dados invalod");

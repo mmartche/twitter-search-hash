@@ -4,11 +4,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.marcelo.api.modelo.Topico;
+import com.marcelo.api.modelo.Topic;
 
-public interface TopicoRepository extends JpaRepository<Topico, Long> {
+public interface TopicsRepository extends JpaRepository<Topic, Long> {
 
-	Page<Topico> findByCursoNome(String nomeCurso, Pageable paginacao);
+	Page<Topic> findByTitle(String title, Pageable paginacao);
 	
 
 }

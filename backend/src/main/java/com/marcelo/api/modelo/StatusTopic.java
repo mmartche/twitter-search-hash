@@ -1,6 +1,6 @@
 package com.marcelo.api.modelo;
 
-public enum StatusTopico {
+public enum StatusTopic {
 	
 	NAO_RESPONDIDO,
 	NAO_SOLUCIONADO,

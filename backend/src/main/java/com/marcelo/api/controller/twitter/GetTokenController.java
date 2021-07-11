@@ -25,6 +25,9 @@ public class GetTokenController {
 	@Value("${api.twitter.consumerSecret}")
 	private String consumerSecret;
 	
+	@Value("${api.twitter.urlCallback}")
+	private String twitterUrlCallback;
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(GetTokenController.class);
 	
     @RequestMapping("/getToken")
@@ -37,7 +40,7 @@ public class GetTokenController {
 			Twitter twitter = getTwitter();
 			
 			//get the callback url so they get back here
-			String callbackUrl = "http://127.0.0.1:8090/twitterCallback";
+			String callbackUrl = twitterUrlCallback+"/twitterCallback";
 
 			//go get the request token from Twitter
 			RequestToken requestToken = twitter.getOAuthRequestToken(callbackUrl);
